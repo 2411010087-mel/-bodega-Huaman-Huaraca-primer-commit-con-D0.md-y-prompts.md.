@@ -2,9 +2,9 @@
 
 final class ServicioVenta
 {
-    public static function validarCantidad(int $cantidad): bool
+    public static function validarCantidad(int|float $cantidad): bool
     {
-        return $cantidad > 0;
+        return is_int($cantidad) && $cantidad > 0;
     }
 
     /** @return array{cantidad: int|null, fuera_de_rango: bool} */
