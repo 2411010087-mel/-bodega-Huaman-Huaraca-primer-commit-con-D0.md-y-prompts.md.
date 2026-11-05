@@ -106,7 +106,7 @@ final class RepositorioMySQL
                     $productoId,
                     $cantidad,
                     $precio,
-                    round($precio * $cantidad, 2),
+                    ServicioVenta::calcularImporte($precio, $cantidad),
                 ]);
                 $actualizarStock->execute([$cantidad, $productoId, $cantidad]);
 

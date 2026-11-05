@@ -7,9 +7,48 @@ final class ServicioVenta
         return $cantidad > 0;
     }
 
+    /** @return array{cantidad: int|null, fuera_de_rango: bool} */
+    public static function interpretarCantidad(string $texto): array
+    {
+        if ($texto === '' || !ctype_digit($texto)) {
+            return ['cantidad' => null, 'fuera_de_rango' => false];
+        }
+
+        $normalizada = ltrim($texto, '0');
+        $normalizada = $normalizada === '' ? '0' : $normalizada;
+        $maximoEntero = (string) PHP_INT_MAX;
+
+        if (
+            strlen($normalizada) > strlen($maximoEntero)
+            || (
+                strlen($normalizada) === strlen($maximoEntero)
+                && strcmp($normalizada, $maximoEntero) > 0
+            )
+        ) {
+            return ['cantidad' => null, 'fuera_de_rango' => true];
+        }
+
+        $cantidad = (int) $normalizada;
+
+        return [
+            'cantidad' => self::validarCantidad($cantidad) ? $cantidad : null,
+            'fuera_de_rango' => false,
+        ];
+    }
+
     public static function hayStock(int $cantidad, int $stock): bool
     {
         return $cantidad <= $stock;
+    }
+
+    public static function sumarCantidades(int $acumulada, int $cantidad): int
+    {
+        return $acumulada + $cantidad;
+    }
+
+    public static function calcularImporte(float $precioUnitario, int $cantidad): float
+    {
+        return round($precioUnitario * $cantidad, 2);
     }
 
     public static function calcularSubtotal(array $items): float

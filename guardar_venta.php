@@ -59,28 +59,14 @@ if (!is_array($lineasRecibidas)) {
             continue;
         }
 
-        if ($cantidadTexto === '' || !ctype_digit($cantidadTexto)) {
-            $errores[] = 'La cantidad debe ser un entero mayor que cero.';
-            continue;
-        }
-
-        $cantidadNormalizada = ltrim($cantidadTexto, '0');
-        $cantidadNormalizada = $cantidadNormalizada === '' ? '0' : $cantidadNormalizada;
-        $maximoEntero = (string) PHP_INT_MAX;
-
-        if (
-            strlen($cantidadNormalizada) > strlen($maximoEntero)
-            || (
-                strlen($cantidadNormalizada) === strlen($maximoEntero)
-                && strcmp($cantidadNormalizada, $maximoEntero) > 0
-            )
-        ) {
+        $resultadoCantidad = ServicioVenta::interpretarCantidad($cantidadTexto);
+        if ($resultadoCantidad['fuera_de_rango']) {
             $errores[] = 'La cantidad ingresada está fuera del rango permitido.';
             continue;
         }
 
-        $cantidad = (int) $cantidadNormalizada;
-        if (!ServicioVenta::validarCantidad($cantidad)) {
+        $cantidad = $resultadoCantidad['cantidad'];
+        if ($cantidad === null) {
             $errores[] = 'La cantidad debe ser un entero mayor que cero.';
             continue;
         }
@@ -115,10 +101,12 @@ if ($errores === []) {
             }
 
             $productoId = (int) $producto['id'];
-            $cantidadTotal = ($cantidadesPorProducto[$productoId] ?? 0) + $linea['cantidad'];
-            $cantidadesPorProducto[$productoId] = $cantidadTotal;
+            $cantidadesPorProducto[$productoId] = ServicioVenta::sumarCantidades(
+                $cantidadesPorProducto[$productoId] ?? 0,
+                $linea['cantidad']
+            );
 
-            if (!ServicioVenta::hayStock($cantidadTotal, (int) $producto['stock'])) {
+            if (!ServicioVenta::hayStock($cantidadesPorProducto[$productoId], (int) $producto['stock'])) {
                 $errores[] = 'Stock insuficiente para el producto «' . $producto['nombre'] . '».';
                 continue;
             }
@@ -129,7 +117,7 @@ if ($errores === []) {
                 'nombre' => (string) $producto['nombre'],
                 'cantidad' => $linea['cantidad'],
                 'precio_unitario' => $precio,
-                'importe' => round($precio * $linea['cantidad'], 2),
+                'importe' => ServicioVenta::calcularImporte($precio, $linea['cantidad']),
             ];
         }
 
