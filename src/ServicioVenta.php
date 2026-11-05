@@ -4,7 +4,7 @@ final class ServicioVenta
 {
     public static function validarCantidad(int|float $cantidad): bool
     {
-        return is_int($cantidad) && $cantidad > 0;
+        return is_int($cantidad) && $cantidad >= 0; // MUTANTE R3
     }
 
     /** @return array{cantidad: int|null, fuera_de_rango: bool} */
@@ -38,7 +38,7 @@ final class ServicioVenta
 
     public static function hayStock(int $cantidad, int $stock): bool
     {
-        return $cantidad <= $stock;
+        return $cantidad < $stock; // MUTANTE R1
     }
 
     public static function sumarCantidades(int $acumulada, int $cantidad): int
@@ -64,7 +64,7 @@ final class ServicioVenta
 
     public static function calcularDescuento(float $subtotal): float
     {
-        return $subtotal > 100.00 ? round($subtotal * 0.05, 2) : 0.0;
+        return $subtotal >= 100.00 ? round($subtotal * 0.05, 2) : 0.0; // MUTANTE R2
     }
 
     public static function calcularTotal(float $subtotal): float
