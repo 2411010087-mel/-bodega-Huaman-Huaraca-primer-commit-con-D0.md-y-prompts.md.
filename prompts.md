@@ -4,3 +4,4 @@ P3 · Kiro (spec) · El diseño inicial salió con 4 capas, bcmath y nombres de 
 P4 · VS Code (agente de código) · Revisé que bodega.sql tuviera las 3 tablas con los tipos del diseño, 6 productos con uno en stock 0 y sin triggers ni procedimientos; no cambié nada · porque coincide con design.md
 P5 · VS Code (agente de código) · Agregué una aclaración para que R3 verifique que el texto sea un entero válido antes de convertirlo a int; (anota aquí lo que corrijas, o "no cambié nada") · porque el formulario envía texto y (int)"2.5" daría 2
 P5b · VS Code (agente de código) · Pedí tema visual celeste pastel y extras de presentación (tarjetas de resumen, buscador, boleta); (anota aquí lo que cambiaste) · mejora de apariencia sin tocar la lógica de negocio
+P5c · VS Code (agente de código) · Pedí que los productos sin stock se puedan seleccionar y salgan en rosa con la marca «⚠ sin stock»; (anota lo que cambiaste) · para poder probar R1 en el servidor desde la pantalla

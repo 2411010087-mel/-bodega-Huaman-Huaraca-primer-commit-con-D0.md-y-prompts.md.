@@ -65,10 +65,11 @@ try {
                                 <option value="">Seleccione un producto</option>
                                 <?php foreach ($productos as $producto): ?>
                                     <option value="<?= (int) $producto['id'] ?>"
-                                        <?= (int) $producto['stock'] === 0 ? 'disabled' : '' ?>>
+                                        <?= (int) $producto['stock'] === 0 ? 'class="producto-sin-stock"' : '' ?>>
                                         <?= escapar((string) $producto['nombre']) ?>
                                         — S/ <?= number_format((float) $producto['precio'], 2, '.', ',') ?>
                                         (stock: <?= (int) $producto['stock'] ?>)
+                                        <?= (int) $producto['stock'] === 0 ? '⚠ sin stock' : '' ?>
                                     </option>
                                 <?php endforeach; ?>
                             </select>
@@ -99,10 +100,11 @@ try {
                 <option value="">Seleccione un producto</option>
                 <?php foreach ($productos as $producto): ?>
                     <option value="<?= (int) $producto['id'] ?>"
-                        <?= (int) $producto['stock'] === 0 ? 'disabled' : '' ?>>
+                        <?= (int) $producto['stock'] === 0 ? 'class="producto-sin-stock"' : '' ?>>
                         <?= escapar((string) $producto['nombre']) ?>
                         — S/ <?= number_format((float) $producto['precio'], 2, '.', ',') ?>
                         (stock: <?= (int) $producto['stock'] ?>)
+                        <?= (int) $producto['stock'] === 0 ? '⚠ sin stock' : '' ?>
                     </option>
                 <?php endforeach; ?>
             </select>
@@ -127,6 +129,15 @@ try {
             linea.querySelector('.quitar-linea').disabled = lineas.length === 1;
         });
     };
+    const actualizarEstadoStock = (select) => {
+        const opcion = select.selectedOptions[0];
+        select.classList.toggle(
+            'producto-sin-stock-seleccionado',
+            opcion?.classList.contains('producto-sin-stock') ?? false
+        );
+    };
+
+    contenedor?.querySelectorAll('select[name$="[producto_id]"]').forEach(actualizarEstadoStock);
 
     document.getElementById('agregar-linea')?.addEventListener('click', () => {
         const nuevaLinea = plantilla.content.firstElementChild.cloneNode(true);
@@ -135,6 +146,7 @@ try {
             campo.name = `lineas[${indice}][${campo.dataset.campo}]`;
         });
         contenedor.appendChild(nuevaLinea);
+        actualizarEstadoStock(nuevaLinea.querySelector('select[name$="[producto_id]"]'));
         actualizarBotones();
     });
 
@@ -142,6 +154,12 @@ try {
         if (evento.target.matches('.quitar-linea')) {
             evento.target.closest('.linea').remove();
             actualizarBotones();
+        }
+    });
+
+    contenedor?.addEventListener('change', (evento) => {
+        if (evento.target.matches('select[name$="[producto_id]"]')) {
+            actualizarEstadoStock(evento.target);
         }
     });
 })();

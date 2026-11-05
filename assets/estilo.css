@@ -149,6 +149,16 @@ h3,
     box-shadow: 0 0 0 0.2rem rgba(110, 198, 245, 0.2);
 }
 
+.form-select option.producto-sin-stock {
+    color: #C2185B;
+    background-color: #FFE0EB;
+}
+
+.form-select.producto-sin-stock-seleccionado,
+.form-select.producto-sin-stock-seleccionado:focus {
+    border-color: #FF8FAB;
+}
+
 .table-shell {
     overflow: hidden;
 }
