@@ -1,3 +1,4 @@
 P1 · Editor de texto · Redacté D0.md a mano y escribí el problema con mis palabras · es el documento base del proyecto
 P2 · Kiro (spec) · Pedí corregir el criterio 2.1 para permitir varias líneas por venta y traducir el documento al español · porque venta.php permite agregar varias líneas (P5)
 P3 · Kiro (spec) · El diseño inicial salió con 4 capas, bcmath y nombres de tablas distintos; pedí rehacerlo a 3 capas, ServicioVenta sin BD, float, tablas producto/venta/detalle_venta y solo pruebas unitarias · para que coincida con la guía y ServicioVenta sea testeable sin base de datos
+P4 · VS Code (agente de código) · Revisé que bodega.sql tuviera las 3 tablas con los tipos del diseño, 6 productos con uno en stock 0 y sin triggers ni procedimientos; no cambié nada · porque coincide con design.md
