@@ -1,1 +1,2 @@
 P1 · Editor de texto · Redacté D0.md a mano y escribí el problema con mis palabras · es el documento base del proyecto
+P2 · Kiro (spec) · Pedí corregir el criterio 2.1 para permitir varias líneas por venta y traducir el documento al español · porque venta.php permite agregar varias líneas (P5)
