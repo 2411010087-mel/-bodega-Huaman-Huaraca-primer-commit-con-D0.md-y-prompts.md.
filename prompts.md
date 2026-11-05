@@ -1,0 +1,1 @@
+P1 · Editor de texto · Redacté D0.md a mano y escribí el problema con mis palabras · es el documento base del proyecto
