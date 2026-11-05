@@ -11,3 +11,4 @@ final class ServicioVentaTest extends TestCase
     {
         $this->assertFalse(ServicioVenta::validarCantidad(1.5));
     }
+}
