@@ -1,0 +1,244 @@
+:root {
+    --cielo: #6EC6F5;
+    --cielo-hover: #4FB3EA;
+    --cielo-claro: #F2F9FF;
+    --rosa: #FFC8DD;
+    --rosa-fuerte: #FF8FAB;
+    --menta: #A8E6CF;
+    --amarillo: #FFE9A8;
+    --texto: #3D5A80;
+    --sombra: 0 12px 32px rgba(61, 90, 128, 0.10);
+}
+
+body {
+    min-height: 100vh;
+    color: var(--texto);
+    background:
+        radial-gradient(ellipse at 12% 9%, rgba(255, 255, 255, 0.95) 0 6%, transparent 6.5%),
+        radial-gradient(ellipse at 17% 8%, rgba(255, 255, 255, 0.95) 0 4%, transparent 4.5%),
+        radial-gradient(ellipse at 86% 30%, rgba(255, 255, 255, 0.65) 0 5%, transparent 5.5%),
+        var(--cielo-claro);
+    font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+h1,
+h2,
+h3,
+.form-label {
+    color: var(--texto);
+}
+
+.navbar-cloud {
+    background: linear-gradient(110deg, #8FD3F4, #BFE6FB);
+    box-shadow: 0 4px 18px rgba(79, 179, 234, 0.18);
+}
+
+.navbar-cloud .navbar-brand {
+    color: #fff;
+    font-weight: 750;
+    letter-spacing: 0.01em;
+}
+
+.navbar-cloud .navbar-brand:hover,
+.navbar-cloud .navbar-brand:focus {
+    color: #fff;
+}
+
+.btn {
+    border-radius: 999px;
+    font-weight: 650;
+    padding-inline: 1.15rem;
+}
+
+.btn-primary,
+.btn-success {
+    color: #fff;
+    border-color: var(--cielo);
+    background-color: var(--cielo);
+}
+
+.btn-primary:hover,
+.btn-success:hover {
+    color: #fff;
+    border-color: var(--cielo-hover);
+    background-color: var(--cielo-hover);
+}
+
+.btn-outline-success {
+    color: var(--texto);
+    border-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.28);
+}
+
+.btn-outline-success:hover {
+    color: var(--texto);
+    border-color: #fff;
+    background-color: #fff;
+}
+
+.btn-outline-danger {
+    color: #cf6485;
+    border-color: #f4a8c1;
+}
+
+.btn-outline-danger:hover {
+    color: #fff;
+    border-color: var(--rosa-fuerte);
+    background-color: var(--rosa-fuerte);
+}
+
+.card,
+.table-shell,
+.alert {
+    border: 1px solid rgba(143, 211, 244, 0.25);
+    border-radius: 16px;
+    box-shadow: var(--sombra);
+}
+
+.card,
+.table-shell {
+    background-color: #fff;
+}
+
+.summary-card {
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.summary-card::after {
+    position: absolute;
+    content: "";
+    width: 76px;
+    height: 76px;
+    right: -20px;
+    bottom: -28px;
+    border-radius: 50%;
+    background: rgba(143, 211, 244, 0.18);
+}
+
+.summary-card .card-body {
+    padding: 1.25rem 1.35rem;
+}
+
+.summary-label {
+    color: #7085a2;
+    font-size: 0.9rem;
+    font-weight: 650;
+}
+
+.summary-value {
+    margin: 0.3rem 0 0;
+    color: var(--texto);
+    font-size: 1.8rem;
+    font-weight: 750;
+}
+
+.search-box,
+.form-control,
+.form-select {
+    border-color: #d7eaf6;
+    border-radius: 12px;
+    color: var(--texto);
+}
+
+.search-box:focus,
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--cielo);
+    box-shadow: 0 0 0 0.2rem rgba(110, 198, 245, 0.2);
+}
+
+.table-shell {
+    overflow: hidden;
+}
+
+.table {
+    --bs-table-color: var(--texto);
+    margin-bottom: 0;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.9rem 1rem;
+}
+
+.table thead th {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+    background-color: var(--cielo);
+    font-weight: 650;
+}
+
+.table tbody tr:last-child > * {
+    border-bottom: 0;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    --bs-table-bg-type: #f8fcff;
+}
+
+.stock-badge {
+    display: inline-block;
+    min-width: 2.3rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    color: var(--texto);
+    font-weight: 700;
+    text-align: center;
+}
+
+.stock-empty {
+    color: #fff;
+    background-color: var(--rosa-fuerte);
+}
+
+.stock-low {
+    background-color: var(--amarillo);
+}
+
+.stock-ok {
+    background-color: var(--menta);
+}
+
+.alert-success {
+    color: #315d51;
+    border-color: #b6ead7;
+    background-color: #e8faf2;
+}
+
+.alert-danger {
+    color: #8c4a63;
+    border-color: #ffd1df;
+    background-color: #fff0f5;
+}
+
+.alert-info {
+    color: var(--texto);
+    border-color: #c5e8fa;
+    background-color: #eaf7ff;
+}
+
+.receipt-total {
+    border-top: 1px dashed #c9ddea;
+    color: var(--texto);
+    font-size: 1.2rem;
+    font-weight: 750;
+}
+
+.page-footer {
+    color: #7188a4;
+}
+
+.empty-results {
+    display: none;
+}
+
+@media (max-width: 575.98px) {
+    .table > :not(caption) > * > * {
+        padding: 0.7rem;
+    }
+
+    .summary-value {
+        font-size: 1.5rem;
+    }
+}

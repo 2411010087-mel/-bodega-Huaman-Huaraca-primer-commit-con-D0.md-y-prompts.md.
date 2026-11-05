@@ -126,6 +126,7 @@ if ($errores === []) {
             $precio = (float) $producto['precio'];
             $lineas[] = [
                 'producto_id' => $productoId,
+                'nombre' => (string) $producto['nombre'],
                 'cantidad' => $linea['cantidad'],
                 'precio_unitario' => $precio,
                 'importe' => round($precio * $linea['cantidad'], 2),
@@ -159,26 +160,69 @@ if ($errores === []) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Resultado de venta | Bodega Doña Rosa</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="assets/estilo.css" rel="stylesheet">
 </head>
-<body class="bg-light">
-<nav class="navbar navbar-dark bg-success">
+<body>
+<nav class="navbar navbar-cloud">
     <div class="container">
-        <a class="navbar-brand" href="index.php">Bodega Doña Rosa</a>
-        <a class="btn btn-outline-light" href="index.php">Ver inventario</a>
+        <a class="navbar-brand" href="index.php">☁️ Bodega Doña Rosa</a>
+        <a class="btn btn-outline-success" href="index.php">Ver inventario</a>
     </div>
 </nav>
-<main class="container py-4">
+<main class="container py-4 py-lg-5">
     <?php if ($ventaId !== null && $resumen !== null): ?>
-        <div class="alert alert-success" role="alert">
-            <h1 class="h4">Venta registrada correctamente</h1>
-            <p class="mb-1">Número de venta: <?= $ventaId ?></p>
-            <p class="mb-1">Subtotal: S/ <?= number_format($resumen['subtotal'], 2, '.', ',') ?></p>
-            <p class="mb-1">Descuento: S/ <?= number_format($resumen['descuento'], 2, '.', ',') ?></p>
-            <p class="mb-0">Total: <strong>S/ <?= number_format($resumen['total'], 2, '.', ',') ?></strong></p>
+        <section class="card mx-auto" style="max-width: 760px" aria-labelledby="boleta-titulo">
+            <div class="card-body p-4 p-md-5">
+                <div class="text-center mb-4">
+                    <div class="display-6" aria-hidden="true">☁️</div>
+                    <p class="text-uppercase small fw-semibold mb-1">Bodega Doña Rosa</p>
+                    <h1 class="h3 mb-2" id="boleta-titulo">✅ Venta registrada correctamente</h1>
+                    <p class="mb-0">Boleta N.º <?= $ventaId ?></p>
+                </div>
+                <div class="rounded-3 p-3 mb-4" style="background-color: #f2f9ff">
+                    <span class="text-secondary">Cliente</span>
+                    <div class="fw-semibold"><?= escapar($cliente) ?></div>
+                </div>
+                <h2 class="h5 mb-3">Detalle de la compra</h2>
+                <div class="table-shell table-responsive mb-4">
+                    <table class="table align-middle">
+                        <thead>
+                        <tr><th>Producto</th><th>Cantidad</th><th>Precio</th><th>Importe</th></tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($lineas as $linea): ?>
+                            <tr>
+                                <td><?= escapar($linea['nombre']) ?></td>
+                                <td><?= (int) $linea['cantidad'] ?></td>
+                                <td>S/ <?= number_format((float) $linea['precio_unitario'], 2, '.', ',') ?></td>
+                                <td>S/ <?= number_format((float) $linea['importe'], 2, '.', ',') ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ms-auto" style="max-width: 320px">
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal</span>
+                        <span>S/ <?= number_format($resumen['subtotal'], 2, '.', ',') ?></span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3">
+                        <span>Descuento</span>
+                        <span>S/ <?= number_format($resumen['descuento'], 2, '.', ',') ?></span>
+                    </div>
+                    <div class="receipt-total d-flex justify-content-between pt-3">
+                        <span>Total</span>
+                        <span>S/ <?= number_format($resumen['total'], 2, '.', ',') ?></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="text-center mt-4">
+            <a href="index.php" class="btn btn-primary">Volver al inventario</a>
         </div>
     <?php else: ?>
         <div class="alert alert-danger" role="alert">
-            <h1 class="h4">No se pudo registrar la venta</h1>
+            <h1 class="h4">💗 No se pudo registrar la venta</h1>
             <?php if ($errorBaseDatos !== null): ?>
                 <p class="mb-0"><?= escapar($errorBaseDatos) ?></p>
             <?php else: ?>
@@ -190,8 +234,10 @@ if ($errores === []) {
             <?php endif; ?>
         </div>
     <?php endif; ?>
-    <a href="venta.php" class="btn btn-success">Volver a ventas</a>
-    <a href="index.php" class="btn btn-outline-secondary">Ir al inventario</a>
+    <?php if ($ventaId === null): ?>
+        <a href="venta.php" class="btn btn-primary">Volver a ventas</a>
+        <a href="index.php" class="btn btn-outline-secondary">Ir al inventario</a>
+    <?php endif; ?>
 </main>
 </body>
 </html>
